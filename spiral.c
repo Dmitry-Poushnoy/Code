@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MATRIX_SIZE 4 //размерность матрицы
+#define MATRIX_SIZE 9 //размерность матрицы
 
 int main(void)
 {
@@ -13,6 +13,17 @@ int main(void)
     for (int k = 0; k < *maxcell; k++) //для теста просто пока по порядку с нуля
     {
         array[k] = k;
+    }
+    //выводим начальную матрицу
+    int k = 0;
+    for (int i = 0; i < MATRIX_SIZE; i++)
+    {
+        for (int j = 0; j < MATRIX_SIZE; j++)
+        {
+            printf("%4i", array[k]);
+            k++;
+        }
+        printf("\n");
     }
     //вычислить стартовую ячейку
     int start_col;
@@ -27,8 +38,8 @@ int main(void)
         start_col = MATRIX_SIZE / 2;
         start_row = MATRIX_SIZE / 2;
     }
-    printf("matrix %ix%i\n", MATRIX_SIZE, MATRIX_SIZE); //ПРОВЕРКА
-    printf("start matrix[%i][%i]\n", start_col, start_row); //ПРОВЕРКА
+    // printf("matrix %ix%i\n", MATRIX_SIZE, MATRIX_SIZE); //ПРОВЕРКА
+    // printf("start matrix[%i][%i]\n", start_col, start_row); //ПРОВЕРКА
 
     int *direction = malloc(sizeof(int)); //направление 0 - вверх, 1 - влево, 2 - вниз, 3 - вправо
     int *step = malloc(sizeof(int)); //кол-во шагов, сделанных в выбранном направлении
@@ -44,7 +55,7 @@ int main(void)
     //printf("matrix[%i][%i]\n", *col, *row); //ПРОВЕРКА
     //записать стартовую ячейку
     matrix[*col][*row] = array[*cellcount];
-    printf("matrix[%i][%i] = %i\n", *col, *row, matrix[*col][*row]); //ПРОВЕРКА
+    //printf("matrix[%i][%i] = %i\n", *col, *row, matrix[*col][*row]); //ПРОВЕРКА
     *cellcount = *cellcount + 1;
     *direction = 2; //стартовое направление
     int *plus = malloc(sizeof(int)); //флаг для увеличения или не увеличения maxstep
@@ -72,7 +83,7 @@ int main(void)
             }
             //записать в матрицу
             matrix[*col][*row] = array[*cellcount];
-            printf("matrix[%i][%i] = %i\n", *col, *row, matrix[*col][*row]); //ПРОВЕРКА
+            //printf("matrix[%i][%i] = %i\n", *col, *row, matrix[*col][*row]); //ПРОВЕРКА
             //увеличить step и cellcount
             *step = *step + 1;
             *cellcount = *cellcount + 1;
@@ -92,6 +103,16 @@ int main(void)
         }
     }
     while (*cellcount < *maxcell);
+    printf("\n");
+    //выводим новую матрицу по спирали
+    for (int i = 0; i < MATRIX_SIZE; i++)
+    {
+        for (int j = 0; j < MATRIX_SIZE; j++)
+        {
+            printf("%4i", matrix[i][j]);
+        }
+        printf("\n");
+    }
     //освободить память
     free(maxcell);
     free(direction);
