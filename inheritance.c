@@ -45,10 +45,8 @@ person *create_family(int generations)
     if (generations > 1)
     {
         // TODO: Recursively create blood type histories for parents
-        person *tmp_chel1 = malloc(sizeof(person));
-        tmp_chel1 = create_family(generations - 1);
-        person *tmp_chel2 = malloc(sizeof(person));
-        tmp_chel2 = create_family(generations - 1);
+        person *tmp_chel1 = create_family(generations - 1);
+        person *tmp_chel2 = create_family(generations - 1);
         chel->parents[0] = tmp_chel1;
         chel->parents[1] = tmp_chel2;
         // TODO: Randomly assign child alleles based on parents
@@ -66,7 +64,6 @@ person *create_family(int generations)
         chel->alleles[0] = random_allele();
         chel->alleles[1] = random_allele();
     }
-
     // TODO: Return newly created person
     return chel;
 }
@@ -82,8 +79,10 @@ void free_family(person *p)
     // TODO: Free parents
     free_family(p->parents[0]);
     free_family(p->parents[1]);
-    
+
     // TODO: Free child
+    //p->parents[0] = NULL;
+    //p->parents[1] = NULL;
     free(p);
 }
 
