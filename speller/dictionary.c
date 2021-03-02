@@ -1,7 +1,9 @@
 // Implements a dictionary's functionality
 
 #include <stdbool.h>
-
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 #include "dictionary.h"
 
 // Represents a node in a hash table
@@ -35,8 +37,36 @@ unsigned int hash(const char *word)
 // Loads dictionary into memory, returning true if successful, else false
 bool load(const char *dictionary)
 {
-    // TODO
-    return false;
+    //открыть файл словаря
+    FILE *file = fopen(dictionary, "r");
+    if (file == NULL)
+    {
+        printf("Dictionary file %s hasn't been opened!\n", dictionary);
+        return false;
+    }
+
+    //считать слова
+    char buffer[LENGTH + 1] = {'\0'};
+    printf("In %s dictionary there are the following words: \n", dictionary);
+    while (fscanf(file, "%s", buffer) != EOF)
+    {
+        //создаём новый node
+        node *n = malloc(sizeof(node));
+        if (n == NULL)
+        {
+            printf("There is error in allocation of memory.\n");
+            return false;
+        }
+        strcpy(n->word, buffer); //запоминаем слварное слово в node
+        n->next = n; //указываем на следующий node
+
+        printf("%s\n", n->word); //ПРОВЕРКА - выводим на экран что записали в node
+
+    }
+
+
+    fclose(file);
+    return true;
 }
 
 // Returns number of words in dictionary if loaded, else 0 if not yet loaded
