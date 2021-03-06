@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
+#include <strings.h>
 #include <stdlib.h>
 #include "dictionary.h"
 
@@ -15,7 +16,7 @@ typedef struct node
 node;
 
 // Number of buckets in hash table
-const unsigned int N = 262145; //максимальное uint, значительно больше размера словаря; ПОПРОБОВАТЬ 2^18+1 == 262145 ( & 0x3FFFF)
+const unsigned int N = 0x40000; //максимальное uint, значительно больше размера словаря; ПОПРОБОВАТЬ 2^18+1 == 262145 ( & 0x3FFFF)
 
 // Hash table
 node *table[N];
@@ -23,7 +24,34 @@ node *table[N];
 // Returns true if word is in dictionary, else false
 bool check(const char *word)
 {
-    // TODO
+    int index = hash(word);
+    if (table[index] == NULL)
+    {
+        return false;
+    }
+    else
+    {
+        if (strcasecmp(table[index]->word, word) == 0)
+        {
+            return true;
+        }
+        if (strcasecmp(table[index]->word, word) != 0)
+        {
+            node *cursor = malloc(sizeof(node));
+            cursor = table[index];
+            do
+            {
+                cursor = cursor->next;
+                if (strcasecmp(cursor->word, word) == 0)
+                {
+                    free(cursor);
+                    return true;
+                }
+            }
+            while (cursor->next != NULL);
+            free(cursor);
+        }
+    }
     return false;
 }
 
@@ -41,7 +69,7 @@ unsigned int hash(const char *word) //Брать нужное количесто
 		word++;
 		i++;
 	}
-	return hash & 0x3FFFF; //выбираем только 19 правых разрядов, чтобы в него поместился словарь с количеством слов N
+	return hash % N; //выбираем только 19 правых разрядов, чтобы в него поместился словарь с количеством слов N
 }
 
 
@@ -59,7 +87,7 @@ bool load(const char *dictionary)
 
     //считать слова
     char buffer[LENGTH + 1] = {'\0'};
-    printf("There are the following words in %s: \n", dictionary);
+    //printf("There are the following words in %s: \n", dictionary); ПРОВЕРКА
     while (fscanf(dict_file, "%s", buffer) != EOF)
     {
 
@@ -75,15 +103,14 @@ bool load(const char *dictionary)
         strcpy(n->word, buffer); //запоминаем словарное слово в новую ноду
         n->next = table[hash(n->word)];
         table[hash(n->word)] = n;
-        printf("%s\n", table[hash(n->word)]->word);
+        //printf("%s\n", table[hash(n->word)]->word); ПРОВЕРКА
         free(n);
         int i = 0;
-        do
+        while (buffer[i] != '\0')
         {
             buffer[i] = '\0';
             i++;
         }
-        while (buffer[i] != '\0');
     }
     fclose(dict_file);
     return true;
@@ -92,8 +119,19 @@ bool load(const char *dictionary)
 // Returns number of words in dictionary if loaded, else 0 if not yet loaded
 unsigned int size(void)
 {
-    // TODO
-    return 0;
+    unsigned int count = 0;
+    for (int i = 0; i < N; i++)
+    if (table[i] != NULL)
+    {
+        count++;
+        while (table[i]->next != NULL)
+        {
+            count++;
+            table[i] = table[i]->next;
+        }
+    }
+    printf("Number of keys is %i\n", count);
+    return count;
 }
 
 // Unloads dictionary from memory, returning true if successful, else false
