@@ -33,12 +33,12 @@ def check_cardnum(num: str) -> str:
     name_card = 'AMEX', 'MASTERCARD', 'VISA', 'INVALID'
     if check_13to16(num):
         for i in {'34', '37'}:
-            if num.startswith(i):
+            if num.startswith(i) and len(num) == 15:
                 return "May be " + name_card[0]
-        for i in {'51', '52', '53', '54', '55'}:
+        for i in {'51', '52', '53', '54', '55'} and len(num) == 16:
             if num.startswith(i):
                 return "May be " + name_card[1]
-        if num.startswith('4'):
+        if num.startswith('4') and len(num) in {13, 16}:
             return "May be " + name_card[2]
         return "May be cardnumber."
     else:
