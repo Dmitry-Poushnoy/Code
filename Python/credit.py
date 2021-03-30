@@ -24,18 +24,27 @@ def check_13to16(num: str) -> bool:
         return False
 
 
+def str_to_list_int(num: str) -> list:
+    """
+    Convert string to list of integers.
+    :param num: String of digits symbols.
+    :return: List on integers equal to initial string symbols.
+    """
+    symbols_number = len(num)
+    num_list = list(num)
+    for i in range(symbols_number):
+        num_list[i] = int(num_list[i])
+    return num_list
+
+
 def luhn(num: str) -> bool:
     """
     Check if algorithm of Luhn is correct with num.
     :param num: String which we check by algorithm of Luhn.
     :return: True if algorithm of Luhn is correct witn num.
     """
-    # Convert str to list of int
-    symbols_number = len(num)
-    num_list = list(num)
-    for i in range(symbols_number):
-        num_list[i] = int(num_list[i])
-
+    num_list = str_to_list_int(num)
+    # TODO: Realise algorithm of Luhn
     return True
 
 
