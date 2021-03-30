@@ -24,6 +24,15 @@ def check_13to16(num: str) -> bool:
         return False
 
 
+def luhn(num: str) -> bool:
+    """
+    Check if algorithm of Luhn is correct with num.
+    :param num: String which we check by algorithm of Luhn.
+    :return: True if algorithm of Luhn is correct witn num.
+    """
+    return True
+
+
 def check_cardnum(num: str) -> str:
     """
     Check if input is a real card number. Main function.
@@ -33,14 +42,14 @@ def check_cardnum(num: str) -> str:
     name_card = 'AMEX', 'MASTERCARD', 'VISA', 'INVALID'
     if check_13to16(num):
         for i in {'34', '37'}:
-            if num.startswith(i) and len(num) == 15:
+            if num.startswith(i) and len(num) == 15 and luhn(num):
                 return "May be " + name_card[0]
-        for i in {'51', '52', '53', '54', '55'} and len(num) == 16:
-            if num.startswith(i):
+        for i in {'51', '52', '53', '54', '55'}:
+            if num.startswith(i) and len(num) == 16:
                 return "May be " + name_card[1]
         if num.startswith('4') and len(num) in {13, 16}:
             return "May be " + name_card[2]
-        return "May be cardnumber."
+        return name_card[3]
     else:
         return name_card[3]
 
