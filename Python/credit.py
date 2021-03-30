@@ -30,6 +30,12 @@ def luhn(num: str) -> bool:
     :param num: String which we check by algorithm of Luhn.
     :return: True if algorithm of Luhn is correct witn num.
     """
+    # Convert str to list of int
+    symbols_number = len(num)
+    num_list = list(num)
+    for i in range(symbols_number):
+        num_list[i] = int(num_list[i])
+
     return True
 
 
@@ -41,14 +47,18 @@ def check_cardnum(num: str) -> str:
     """
     name_card = 'AMEX', 'MASTERCARD', 'VISA', 'INVALID'
     if check_13to16(num):
+        # Check for AMEX
         for i in {'34', '37'}:
             if num.startswith(i) and len(num) == 15 and luhn(num):
-                return "May be " + name_card[0]
+                return name_card[0]
+        # Check for MASTERCARD
         for i in {'51', '52', '53', '54', '55'}:
-            if num.startswith(i) and len(num) == 16:
-                return "May be " + name_card[1]
-        if num.startswith('4') and len(num) in {13, 16}:
-            return "May be " + name_card[2]
+            if num.startswith(i) and len(num) == 16 and luhn(num):
+                return name_card[1]
+        # Check for VISA
+        if num.startswith('4') and len(num) in {13, 16} and luhn(num):
+            return name_card[2]
+        # Else INVALID
         return name_card[3]
     else:
         return name_card[3]
