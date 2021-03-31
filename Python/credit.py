@@ -37,15 +37,64 @@ def str_to_list_int(num: str) -> list:
     return num_list
 
 
+def sum1(num_list: list, status: str) -> int:
+    """
+    Calculate double sum of list of even integers. Len of list is even.
+    :param num_list: List of integers.
+    :param status: 'odd' or 'even' number of members in list.
+    :return: Doubled sum of list of integers, step 2.
+    """
+    if status == 'even':
+        start = 0
+    else:
+        start = 1
+    sum_f = int(0)
+    for i in range(start, len(num_list) - 1, 2):
+        if num_list[i] < 5:
+            sum_f += num_list[i] * 2
+        else:
+            tmp_item = num_list[i] * 2
+            sum_f += 1 + (tmp_item % 10)
+    return sum_f
+
+
+def sum2(num_list: list, status: str) -> int:
+    """
+    Calculate sum of list of odd integers. Len of list is even.
+    :param status: 'odd' or 'even' number of members in list.
+    :param num_list: List of integers.
+    :return: Sum of list of integers, step 2.
+    """
+    if status == 'even':
+        start = 1
+    else:
+        start = 0
+
+    sum_f = int(0)
+    for i in range(start, len(num_list), 2):
+        sum_f += num_list[i]
+    return sum_f
+
+
 def luhn(num: str) -> bool:
     """
     Check if algorithm of Luhn is correct with num.
     :param num: String which we check by algorithm of Luhn.
-    :return: True if algorithm of Luhn is correct witn num.
+    :return: True if algorithm of Luhn is correct with num.
     """
     num_list = str_to_list_int(num)
-    # TODO: Realise algorithm of Luhn
-    return True
+    luhn_sum = int(0)
+    if len(num) % 2 == 0:
+        luhn_sum += sum1(num_list, 'even')
+        luhn_sum += sum2(num_list, 'even')
+    else:
+        luhn_sum += sum1(num_list, 'odd')
+        luhn_sum += sum2(num_list, 'odd')
+
+    if luhn_sum % 10 == 0:
+        return True
+    else:
+        return False
 
 
 def check_cardnum(num: str) -> str:
