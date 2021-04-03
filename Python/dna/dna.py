@@ -61,7 +61,21 @@ def count_rsa(list_rsa: list, seq: str) -> list:
 
 
 def final_search(data: list, dna_extract: list) -> str:
+    """
+    Finally compare detected SRA numbers with list of people.
+    :param data: List of dictionaries of people.
+    :param dna_extract: List of calculated max consequenced RSA.
+    :return: Name of finded man or "No match."
+    """
+    num_of_sra = len(dna_extract)
+    for i in range(num_of_sra):
+        dna_extract[i] = str(dna_extract[i])
+
     # TODO: Complete function
+    num_of_people = len(data)
+    x = list(data[0])
+
+
     return "name"
 
 
@@ -77,7 +91,6 @@ def check_dna(database: str, sequence: str) -> str:
         seq = input_seq(sequence)       # String
         dna_extract = count_rsa(data[0].keys(), seq)
         name = final_search(data, dna_extract)
-        # TODO: Complete the function
         return name
     else:
         raise IndexError
