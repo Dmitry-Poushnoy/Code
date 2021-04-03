@@ -33,7 +33,32 @@ def input_seq(sequence: str) -> str:
 
 
 def count_rsa(list_rsa: list, seq: str) -> list:
-    pass
+    """
+    Calculate max numbers of repeated consequences.
+    :param list_rsa: List of RSA
+    :param seq: DNA sequence to check
+    :return: List of max consequences of repeated RSAs
+    """
+    detected_dna = []
+    for i in list_rsa:  # Loop consequently for each RSA.
+        if i != 'name':
+            length_rsa = len(i)   # Length of current RSA
+            count = 0   # Counter of consequently repeated RSA
+            count_max = 0  # Max counter of consequently repeated RSA
+            j = int(0)
+            index = int(0)  # Index of list detected_dna
+            while j < len(seq) - length_rsa:
+                while seq[j:(j + length_rsa)] == i:
+                    count += 1
+                    if count > count_max:
+                        count_max = count
+                    j += length_rsa
+                count = 0
+                j += 1
+            detected_dna.append(count_max)
+            index += 1
+    print(detected_dna)
+    return detected_dna
 
 
 def check_dna(database: str, sequence: str) -> str:
@@ -48,6 +73,7 @@ def check_dna(database: str, sequence: str) -> str:
         seq = input_seq(sequence)       # String
         dna_extract = count_rsa(data[0].keys(), seq)
         # TODO: Complete the function
+        print(dna_extract)
         name = 'NotYetCompleted Man'
         return name
     else:
