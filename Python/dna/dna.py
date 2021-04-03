@@ -22,7 +22,11 @@ def input_seq(sequence: str) -> str:
     :return: String of sequence.
     """
     # TODO: Complete the function.
-    return str('NotCompletedSequence')
+    with open(sequence) as csvfile:
+        reader = csv.reader(csvfile)
+        for row in reader:
+            dna = row[0]
+    return dna
 
 
 def check_dna(database: str, sequence: str) -> str:
