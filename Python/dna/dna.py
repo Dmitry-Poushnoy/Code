@@ -4,15 +4,18 @@ import sys
 import csv
 
 
-def input_data(database: str) -> dict:
+def input_data(database: str) -> list:
     """
     Read database file.
     :param database: Name of database csv-file.
-    :return: Dictionary of people like {'name': 'Alice', 'AGATC': '2', 'AATG': '8', 'TATC': '3'}
+    :return: List of dictionaries of people like {'name': 'Alice', 'AGATC': '2', 'AATG': '8', 'TATC': '3'}
     """
     with open(database) as csvfile:
         reader = csv.DictReader(csvfile)
-    return reader
+        list_people = []
+        for row in reader:
+            list_people.append(dict(row))
+    return list_people
 
 
 def input_seq(sequence: str) -> str:
@@ -37,7 +40,7 @@ def check_dna(database: str, sequence: str) -> str:
     :return: Name of man or "No match".
     """
     if len(sys.argv) == 3:
-        data = input_data(database)
+        data = input_data(database) # List of dictionaries
         seq = input_seq(sequence)
         name = 'NotYetCompleted Man'
         return name
