@@ -32,6 +32,10 @@ def input_seq(sequence: str) -> str:
     return dna
 
 
+def count_rsa(list_rsa: list, seq: str) -> list:
+    pass
+
+
 def check_dna(database: str, sequence: str) -> str:
     """
     Check if DNA in sequence file belongs to any man from database file.
@@ -40,8 +44,10 @@ def check_dna(database: str, sequence: str) -> str:
     :return: Name of man or "No match".
     """
     if len(sys.argv) == 3:
-        data = input_data(database) # List of dictionaries
-        seq = input_seq(sequence)
+        data = input_data(database)     # List of dictionaries
+        seq = input_seq(sequence)       # String
+        dna_extract = count_rsa(data[0].keys(), seq)
+        # TODO: Complete the function
         name = 'NotYetCompleted Man'
         return name
     else:
