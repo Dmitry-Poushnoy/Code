@@ -8,10 +8,11 @@ def input_data(database: str) -> dict:
     """
     Read database file.
     :param database: Name of database csv-file.
-    :return: Dictionary of people.
+    :return: Dictionary of people like {'name': 'Alice', 'AGATC': '2', 'AATG': '8', 'TATC': '3'}
     """
-    # TODO: Complete the function.
-    return {'NotCompletedDictKey': 'NotCompletedDictValue'}
+    with open(database) as csvfile:
+        reader = csv.DictReader(csvfile)
+    return reader
 
 
 def input_seq(sequence: str) -> str:
