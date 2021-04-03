@@ -57,8 +57,12 @@ def count_rsa(list_rsa: list, seq: str) -> list:
                 j += 1
             detected_dna.append(count_max)
             index += 1
-    print(detected_dna)
     return detected_dna
+
+
+def final_search(data: list, dna_extract: list) -> str:
+    # TODO: Complete function
+    return "name"
 
 
 def check_dna(database: str, sequence: str) -> str:
@@ -72,9 +76,8 @@ def check_dna(database: str, sequence: str) -> str:
         data = input_data(database)     # List of dictionaries
         seq = input_seq(sequence)       # String
         dna_extract = count_rsa(data[0].keys(), seq)
+        name = final_search(data, dna_extract)
         # TODO: Complete the function
-        print(dna_extract)
-        name = 'NotYetCompleted Man'
         return name
     else:
         raise IndexError
