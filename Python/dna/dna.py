@@ -31,27 +31,27 @@ def input_seq(sequence: str) -> str:
     return dna
 
 
-def count_rsa(list_rsa: list, seq: str) -> list:
+def count_str(list_str: list, seq: str) -> list:
     """
     Calculate max numbers of repeated consequences.
-    :param list_rsa: List of RSA
+    :param list_str: List of STR
     :param seq: DNA sequence to check
-    :return: List of max consequences of repeated RSAs
+    :return: List of max consequences of repeated STRs
     """
     detected_dna = []
-    for i in list_rsa:  # Loop consequently for each RSA.
+    for i in list_str:  # Loop consequently for each STR.
         if i != 'name':
-            length_rsa = len(i)  # Length of current RSA
-            count = 0  # Counter of consequently repeated RSA
-            count_max = 0  # Max counter of consequently repeated RSA
+            length_str = len(i)  # Length of current STR
+            count = 0  # Counter of consequently repeated STR
+            count_max = 0  # Max counter of consequently repeated STR
             j = int(0)
             index = int(0)  # Index of list detected_dna
-            while j < len(seq) - length_rsa:
-                while seq[j:(j + length_rsa)] == i:
+            while j < len(seq) - length_str:
+                while seq[j:(j + length_str)] == i:
                     count += 1
                     if count > count_max:
                         count_max = count
-                    j += length_rsa
+                    j += length_str
                 count = 0
                 j += 1
             detected_dna.append(count_max)
@@ -100,7 +100,7 @@ def check_dna(database: str, sequence: str) -> str:
     if len(sys.argv) == 3:
         data = input_data(database)  # List of dictionaries
         seq = input_seq(sequence)  # String
-        dna_extract = count_rsa(data[0].keys(), seq)
+        dna_extract = count_str(data[0].keys(), seq)
         name = final_search(data, dna_extract)
         return name
     else:
