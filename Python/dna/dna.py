@@ -61,9 +61,9 @@ def count_rsa(list_rsa: list, seq: str) -> list:
 
 def final_search(data: list, dna_extract: list) -> str:
     """
-    Finally compare detected SRA numbers with list of people.
+    Finally compare detected STR numbers with list of people.
     :param data: List of dictionaries of people.
-    :param dna_extract: List of calculated max consequenced RSA.
+    :param dna_extract: List of calculated max consequenced STR.
     :return: Name of finded man or "No match."
     """
     num_of_str = len(dna_extract)
