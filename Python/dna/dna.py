@@ -24,7 +24,6 @@ def input_seq(sequence: str) -> str:
     :param sequence: Name of sequence file.
     :return: String of sequence.
     """
-    # TODO: Complete the function.
     with open(sequence) as csvfile:
         reader = csv.reader(csvfile)
         for row in reader:
@@ -68,10 +67,12 @@ def final_search(data: list, dna_extract: list) -> str:
     :return: Name of finded man or "No match."
     """
     num_of_sra = len(dna_extract)
+    norm_dna = ['No match']
     for i in range(num_of_sra):
         dna_extract[i] = str(dna_extract[i])
-
-    # TODO: Complete function
+        norm_dna.append(dna_extract[i])
+    
+    # TODO: Complete the function
     num_of_people = len(data)
     x = list(data[0])
 
