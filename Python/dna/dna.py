@@ -82,6 +82,7 @@ def final_search(data: list, dna_extract: list) -> str:
                 is_find = True
             else:
                 is_find = False
+                break
         if is_find:
             break
     if is_find:
