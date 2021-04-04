@@ -41,8 +41,8 @@ def count_rsa(list_rsa: list, seq: str) -> list:
     detected_dna = []
     for i in list_rsa:  # Loop consequently for each RSA.
         if i != 'name':
-            length_rsa = len(i)   # Length of current RSA
-            count = 0   # Counter of consequently repeated RSA
+            length_rsa = len(i)  # Length of current RSA
+            count = 0  # Counter of consequently repeated RSA
             count_max = 0  # Max counter of consequently repeated RSA
             j = int(0)
             index = int(0)  # Index of list detected_dna
@@ -66,18 +66,28 @@ def final_search(data: list, dna_extract: list) -> str:
     :param dna_extract: List of calculated max consequenced RSA.
     :return: Name of finded man or "No match."
     """
-    num_of_sra = len(dna_extract)
+    num_of_str = len(dna_extract)
     norm_dna = ['No match']
-    for i in range(num_of_sra):
+    for i in range(num_of_str):
         dna_extract[i] = str(dna_extract[i])
         norm_dna.append(dna_extract[i])
-    
-    # TODO: Complete the function
+
     num_of_people = len(data)
-    x = list(data[0])
-
-
-    return "name"
+    is_find = False
+    man_to_check = []
+    for i in range(num_of_people):
+        man_to_check = list(data[i].values())
+        for j in range(1, num_of_str):
+            if man_to_check[j] == norm_dna[j]:
+                is_find = True
+            else:
+                is_find = False
+        if is_find:
+            break
+    if is_find:
+        return man_to_check[0]
+    else:
+        return "No match"
 
 
 def check_dna(database: str, sequence: str) -> str:
@@ -88,8 +98,8 @@ def check_dna(database: str, sequence: str) -> str:
     :return: Name of man or "No match".
     """
     if len(sys.argv) == 3:
-        data = input_data(database)     # List of dictionaries
-        seq = input_seq(sequence)       # String
+        data = input_data(database)  # List of dictionaries
+        seq = input_seq(sequence)  # String
         dna_extract = count_rsa(data[0].keys(), seq)
         name = final_search(data, dna_extract)
         return name
