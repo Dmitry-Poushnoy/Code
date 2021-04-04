@@ -77,7 +77,7 @@ def final_search(data: list, dna_extract: list) -> str:
     man_to_check = []
     for i in range(num_of_people):
         man_to_check = list(data[i].values())
-        for j in range(1, num_of_str):
+        for j in range(1, num_of_str + 1):
             if man_to_check[j] == norm_dna[j]:
                 is_find = True
             else:
