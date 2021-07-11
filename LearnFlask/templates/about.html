@@ -1,0 +1,7 @@
+{% include 'header.html' %}
+    <h1>{{ title }}</h1>
+    <p>Обычный текст о чём-то...</p>
+    <p>
+        Количество машин = {{ cars | sum }}. Максимальное значение = {{ cars | max }}.
+    </p>
+{% include 'footer.html' %}
