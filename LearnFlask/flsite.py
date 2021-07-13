@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from jinja2 import FileSystemLoader, Environment
 
 app = Flask(__name__)
@@ -12,22 +12,17 @@ env = Environment(loader=file_loader)
 @app.route("/")
 @app.route("/index")
 def index():
-    tm = env.get_template('index.html')
-    return tm.render(title="Главная страница", menu=menu)
-
+    return render_template('index.html', title="Главная страница", menu=menu)
 
 @app.route("/about")
 def about():
     cars = [1, 2, 3, 4, 5]
-    tm = env.get_template('about.html')
-    return tm.render(title="Страница о проекте", menu=menu, cars=cars)
+    return render_template('about.html', title="Страница о проекте", menu=menu, cars=cars)
 
 
 @app.route("/contact")
 def contact():
-    tm = env.get_template('contact.html')
-    return tm.render(title="Контакты", menu=menu)
-
+    return render_template('contact.html', title="Контакты", menu=menu)
 
 if __name__ == "__main__":
     app.run(debug=True)
