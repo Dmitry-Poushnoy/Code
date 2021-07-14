@@ -3,11 +3,23 @@
 <head>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}">
     <meta charset="UTF-8">
-    <title> {{ title }} </title>
+    {% if title %}
+    <title>Учебный сайт – {{ title }}</title>
+    {% else %}
+    <title>Учебный сайт</title>
+    {% endif %}
 </head>
+<body>
+<header>
     <ul>
         {% for m in menu %}
         <li>{{ m }}</li>
         {% endfor %}
     </ul>
-<body>
+    {% if title %}
+    <h1>{{ title }}</h1>
+    {% else %}
+    <h1>Учебный сайт</h1>
+    {% endif %}
+</header>
+
