@@ -1,3 +1,5 @@
-{% include 'header.html' %}
+{% extends 'base.html' %}
+    {% block content %}
+    {{ super() }}
 <p><b>Адрес</b>: г. Подольск, дер. Бережки, территория "Каскад Парк", 39</p>
-{% include 'footer.html' %}
+{% endblock %}

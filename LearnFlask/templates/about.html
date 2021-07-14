@@ -1,6 +1,8 @@
-{% include 'header.html' %}
-    <p>Текст о проекте...</p>
-    <p>
-        Количество машин = {{ cars | sum }}. <br/>Максимальное значение = {{ cars | max }}.
-    </p>
-{% include 'footer.html' %}
+{% extends 'base.html' %}
+{% block content %}
+{{ super() }}
+<p>Текст о проекте...</p>
+<p>
+    Количество машин = {{ cars | sum }}. <br/>Максимальное значение = {{ cars | max }}.
+</p>
+{% endblock %}

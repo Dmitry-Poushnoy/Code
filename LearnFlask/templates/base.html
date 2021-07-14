@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}">
+    <meta charset="UTF-8">
+    {% block title %}
+    {% if title %}
+    <title>Учебный сайт – {{ title }}</title>
+    {% else %}
+    <title>Учебный сайт</title>
+    {% endif %}
+    {% endblock title %}
+</head>
+<body>
+{% block content %}
+<header>
+    {% block mainmenu %}
+    <ul>
+        {% for m in menu %}
+        <li>{{ m }}</li>
+        {% endfor %}
+    </ul>
+    {% endblock mainmenu %}
+
+    {% if title %}
+    <h1>{{ title }}</h1>
+    {% else %}
+    <h1>Учебный сайт</h1>
+    {% endif %}
+</header>
+{% endblock content %}
+{% block footer %}
+<footer>
+    <br><hr><br>
+    <p>(c) All rights registered, {{ year }}</p>
+</footer>
+{% endblock footer %}
+</body>
+</html>
+
