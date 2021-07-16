@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for
 from jinja2 import FileSystemLoader, Environment
 
 app = Flask(__name__)
@@ -13,6 +13,7 @@ env = Environment(loader=file_loader)
 @app.route("/")
 @app.route("/index")
 def index():
+    print(url_for('index'))
     return render_template('index.html', menu=menu, year=year)
 
 
@@ -23,8 +24,14 @@ def about():
 
 
 @app.route("/contact")
+@app.route("/contact/")
 def contact():
     return render_template('contact.html', title="Контакты", menu=menu, year=year)
+
+
+@app.route("/contact/<path:username>")
+def contact_p(username):
+    return render_template('contact.html', title="Контакты", menu=menu, year=year, username=username)
 
 
 if __name__ == "__main__":
